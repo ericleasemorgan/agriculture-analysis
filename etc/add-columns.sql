@@ -1,0 +1,1 @@
+ALTER TABLE bib ADD COLUMN pub_place TEXT;
