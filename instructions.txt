@@ -1,0 +1,59 @@
+
+
+Instructions, or Notes to Self
+
+The utility scripts in the ./bin directory are used to create a collection
+of content for the ultimate reading and consumption by the Distant Reader. Here
+is the barest of outlines on how to use them:
+
+  1. ./bin/get-collection-file.sh - get a TSV file from the 'Trust, a collection file
+  2. ./bin/restore.sh - copy any previously cached 'Trust files to the HTID2Books system
+  3. ./bin/cache.sh - run HTID2Books; get additional content
+  4. ./bin/copy.sh - copy the result of Step #3 to the local directory
+  5. ./bin/split.sh - divide the result of Step #4 into smaller files
+  6. ./bin/tsv2csv.py > ./corpus/splits/metadata.csv - based on the result of Step #1,
+     create a metadata file suitable for the Reader
+
+At this stage one ought to run the Reader by hand:
+
+  $ rdr build tonkel-agriculture-2023 ./corpus/splits -s -e
+
+Once finished, which will be in about 10 minutes:
+
+  1. ./bin/add-columns.sh - create an additional column in the Reader's bibliographic table
+  2. ./bin/update-columns.py pub_place - add content to the newly created column
+
+Once one gets this far, use the Reader and/or other software to do
+analysis against tonkel-agriculture-2023. Examples include and are certainly not limited to:
+
+  # create a simple summary
+  $ rdr cluster tonkel-agriculture-2023 -v
+  $ rdr summarize tonkel-agriculture-2023
+  
+  # open https://distantreader.org/in-process/jtonkel/tonkel-agriculture-2023/ in your browser
+
+  # topic model and then output CSV files of topics over time and place
+  $ rdr tm tonkel-agriculture-2023
+  $ rdr tm tonkel-agriculture-2023 -p read -o csv -f date > ~/topics-by-date.csv
+  $ rdr tm tonkel-agriculture-2023 -p read -o csv -f pub_place > ~/topics-by-place.csv
+  
+  # email the CSV files to yourself, and use your spreadsheet to visualize the results
+  $ echo "topics over time" | mailx -s 'topics over time' -a ~/topics-by-date.csv jtonkel@nd.edu
+  $ echo "topics over place" | mailx -s 'topics over time' -a ~/topics-by-place.csv jtonkel@nd.edu
+
+Remember, modeling your data is an iterative process; you will have to
+repeat many/most/all of the processes outline above with many different
+parameters.
+
+
+Next steps
+
+The next steps are to: 1) test the directions outlined above, and 2)
+create one script to rule them all -- ./bin/build.sh
+
+--
+Eric Lease Morgan <emorgan@nd.edu>
+Navari Family Center for Digital Scholarship
+
+May 15, 2023
+

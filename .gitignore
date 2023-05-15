@@ -1,3 +1,5 @@
 corpus/*
 etc/scope.eml
 tmp/*
+study-carrel
+x-*
