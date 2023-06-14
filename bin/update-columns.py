@@ -9,7 +9,7 @@
 
 
 # configure
-METADATA = './study-carrel/metadata.csv'
+METADATA = './study-carrel/index.csv'
 DB       = './study-carrel/etc/reader.db'
 UPDATE   = "UPDATE bib SET %s='%s' WHERE id='%s';"
 
@@ -34,12 +34,11 @@ for index, row in metadata.iterrows() :
 	file  = row[ 'file' ]
 	
 	# create key and create sql
-	key = file.replace( '.txt', '' )
+	key   = file.replace( '.txt', '' )
 	value = value.replace( "'", "''" )
-	sql = ( UPDATE % ( field, value, key ) )
+	sql   = ( UPDATE % ( field, value, key ) )
 	
 	# debug
-	# sys.stderr.write( '\t'.join( [ str( key ), field, value ] ) + '\n' )
 	sys.stderr.write( sql + '\n' )
 	
 	# do the work
